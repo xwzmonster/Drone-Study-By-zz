@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<sdf version="1.8">
+  <world name="car_world">
+
+    <!-- 物理引擎配置（必须启用） -->
+    <physics name="default_physics" type="ode">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+    </physics>
+
+    <!-- 必需系统插件 -->
+    <plugin
+      filename="libignition-gazebo-physics-system.so"
+      name="ignition::gazebo::systems::Physics"/>
+
+    <!-- 统计信息插件（正确配置） -->
+    <plugin filename="libignition-gazebo-world-stats-system.so" name="world_stats">
+      <topic>/world/car_world/stats</topic>
+      <sim_time>true</sim_time>
+      <real_time>true</real_time>
+      <real_time_factor>true</real_time_factor>
+    </plugin>
+
+    <!-- 地面模型 -->
+    <model name="ground_plane">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><plane><normal>0 0 1</normal></plane></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><plane><normal>0 0 1</normal><size>100 100</size></plane></geometry>
+          <material><ambient>0.8 0.8 0.8 1</ambient></material>
+        </visual>
+      </link>
+    </model>
+
+  </world>
+</sdf>
